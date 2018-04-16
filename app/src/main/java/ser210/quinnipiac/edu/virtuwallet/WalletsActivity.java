@@ -15,6 +15,7 @@ public class WalletsActivity extends AppCompatActivity {
 
         // listview not yet implemented because currencies needed from rest api to make wallet to add to database
         // will hard code a work around if getting currencies takes time
+        // testing123
     }
 
     public void onClickAdd(View view) {
