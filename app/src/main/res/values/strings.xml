@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Virtuwallet</string>
+    <string name="info">Convert Currency on the Spot and Keep Track of Your Funds During Your Travels with Virtuwallet!</string>
+    <string name="manage">Manage Wallets</string>
+
+    <string name="add">Add Wallet</string>
+    <string name="add_request">What currency would you like to make a wallet for?</string>
+    <string name="from_hint">From...</string>
+    <string name="to_hint">To...</string>
+    <string name="make">Make Wallet</string>
+
+    <string name="to">to</string>
+    <string name="convert">Convert</string>
+    <string name="deposit">Deposit</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="delete">Delete Wallet</string>
+</resources>
