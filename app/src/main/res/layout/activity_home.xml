@@ -36,7 +36,6 @@
         android:text="@string/manage"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/pigPicture"
-        android:onClick="onClick"
         />
 
 </RelativeLayout>

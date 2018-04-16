@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,9 @@ public class WalletStorage {
             MySQLiteHelper.COLUMN_TOCURRENCY, MySQLiteHelper.COLUMN_BALANCE };
 
     public WalletStorage(Context context) {
+
         dbHelper = new MySQLiteHelper(context);
+        open();
     }
 
     public void open() throws SQLException {
@@ -36,32 +39,26 @@ public class WalletStorage {
         dbHelper.close();
     }
 
-    public Wallet createWallet(String fromCurrency, String toCurrency) {
-        // used to add new wallet
-
-        // automatically sets name of wallet and balance (0)
-        String walletName = fromCurrency + "-" + toCurrency;
-        double balance = 0;
+    public void insertWallet(Wallet wallet) {
 
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_NAME, walletName);
-        values.put(MySQLiteHelper.COLUMN_FROMCURRENCY, fromCurrency);
-        values.put(MySQLiteHelper.COLUMN_TOCURRENCY, toCurrency);
-        values.put(MySQLiteHelper.COLUMN_BALANCE, balance);
+        values.put(MySQLiteHelper.COLUMN_NAME, wallet.getName());
+        values.put(MySQLiteHelper.COLUMN_FROMCURRENCY, wallet.getFromCurrency());
+        values.put(MySQLiteHelper.COLUMN_TOCURRENCY, wallet.getToCurrency());
+        values.put(MySQLiteHelper.COLUMN_BALANCE, wallet.getBalance());
 
         long insertId = database.insert(MySQLiteHelper.TABLE_WALLETS, null,
                 values);
 
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_WALLETS,
-                allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
-                null, null, null);
+//        Cursor cursor = database.query(MySQLiteHelper.TABLE_WALLETS,
+//                allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
+//                null, null, null);
+//
+//        cursor.moveToFirst();
+//
+//        Wallet newWallet = cursorToWallet(cursor);
+//        cursor.close();
 
-        cursor.moveToFirst();
-
-        Wallet newWallet = cursorToWallet(cursor);
-        cursor.close();
-
-        return newWallet;
     }
 
     public List<Wallet> getAllWallets() {
@@ -71,6 +68,8 @@ public class WalletStorage {
 
         Cursor cursor = database.query(MySQLiteHelper.TABLE_WALLETS,
                 allColumns, null, null, null, null, null);
+
+        System.out.println(cursor.getCount());
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -85,7 +84,7 @@ public class WalletStorage {
 
     private Wallet cursorToWallet(Cursor cursor) {
         Wallet wallet = new Wallet();
-        wallet.setId(cursor.getInt(0));
+        //wallet.setId(cursor.getInt(0));//probably don't need to track this
         wallet.setName(cursor.getString(1));
         wallet.setFromCurrency(cursor.getString(2));
         wallet.setToCurrency(cursor.getString(3));

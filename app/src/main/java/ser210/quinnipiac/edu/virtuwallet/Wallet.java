@@ -14,6 +14,20 @@ public class Wallet {
     private String toCurrency;
     private double balance;
 
+    public Wallet(){
+        this.name = "";
+        this.fromCurrency = "";
+        this.toCurrency = "";
+        this.balance = 0;
+    }
+
+    public Wallet(String name, String fromCurrency, String toCurrency, double balance){
+        this.name = name;
+        this.fromCurrency = fromCurrency;
+        this.toCurrency = toCurrency;
+        this.balance = balance;
+    }
+
     public long getId() {
         return id;
     }
