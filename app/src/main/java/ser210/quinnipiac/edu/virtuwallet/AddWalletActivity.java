@@ -55,7 +55,7 @@ public class AddWalletActivity extends AppCompatActivity {
                 String to = toCurrency.getSelectedItem().toString();//USD-United States Dollar
 
                 from = from.substring(0, from.indexOf('-'));//USD
-                to = to.substring(0, from.indexOf('-'));//USD
+                to = to.substring(0, to.indexOf('-'));//USD
 
                 double balance = Double.parseDouble(balanceEditText.getText().toString());
                 String name = nameEditText.getText().toString();
@@ -64,6 +64,7 @@ public class AddWalletActivity extends AppCompatActivity {
 
                 WalletStorage ws = new WalletStorage(view.getContext());
                 ws.insertWallet(wallet);
+                ws.getAllWallets();
 
             }
         });
