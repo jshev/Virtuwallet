@@ -29,7 +29,7 @@ public class AddWalletActivity extends AppCompatActivity {
         CurrencyAPI api = new CurrencyAPI();
         ArrayList<String> currencies = null;
         try {
-            currencies = api.execute().get();
+            currencies = api.execute("currencies").get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
