@@ -1,5 +1,6 @@
 package ser210.quinnipiac.edu.virtuwallet;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -66,6 +67,8 @@ public class AddWalletActivity extends AppCompatActivity {
                 ws.insertWallet(wallet);
                 ws.getAllWallets();
 
+                Intent intent = new Intent(AddWalletActivity.this, WalletsActivity.class);
+                startActivity(intent);
             }
         });
     }

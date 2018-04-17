@@ -19,13 +19,34 @@
         android:layout_marginRight="15dp"
         android:text="@string/add_request"/>
 
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/question"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:hint= "@string/name_hint"/>
+
+    <EditText
+        android:id="@+id/balanceEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameEditText"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:hint="@string/balance_hint"
+        android:inputType="numberDecimal" />
+
     <TextView
         android:id="@+id/fromHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearance"
-        android:layout_below="@+id/question"
-        android:layout_marginTop="32dp"
+        android:layout_below="@+id/balanceEditText"
+        android:layout_marginTop="17dp"
         android:layout_marginLeft="15dp"
         android:text="@string/from_hint"/>
 
@@ -33,12 +54,11 @@
         android:id="@+id/fromSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/question"
+        android:layout_below="@+id/balanceEditText"
         android:layout_toRightOf="@+id/fromHint"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="30dp"
-        />
+        android:layout_marginTop="15dp" />
 
     <TextView
         android:id="@+id/toHint"
@@ -59,52 +79,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        />
-
-    <TextView
-    android:id="@+id/balanceHint"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textAppearance="?android:textAppearance"
-    android:layout_below="@+id/toHint"
-    android:layout_marginTop="35dp"
-    android:layout_marginLeft="15dp"
-    android:text="@string/balance_hint"/>
-
-    <EditText
-        android:id="@+id/balanceEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toSpinner"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="0dp"
-        android:layout_toRightOf="@+id/toHint"
-        android:inputType="numberDecimal" />
-
-    <TextView
-        android:id="@+id/nameHint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearance"
-        android:layout_below="@+id/balanceHint"
-        android:layout_marginTop="45dp"
-        android:layout_marginLeft="15dp"
-        android:text="@string/name_hint"/>
-
-    <EditText
-        android:id="@+id/nameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/balanceEditText"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="0dp"
-        android:layout_toRightOf="@+id/toHint"
-        android:inputType="text" />
+        android:layout_marginBottom="20dp" />
 
     <Button
         android:id="@+id/createButton"
@@ -113,9 +88,6 @@
         android:layout_height="wrap_content"
         android:text="@string/make"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
-        android:layout_below="@+id/nameEditText"
-        />
-
+        android:layout_below="@+id/toSpinner" />
 
 </RelativeLayout>

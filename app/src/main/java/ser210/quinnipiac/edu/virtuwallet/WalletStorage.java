@@ -22,8 +22,9 @@ public class WalletStorage {
             MySQLiteHelper.COLUMN_NAME, MySQLiteHelper.COLUMN_FROMCURRENCY,
             MySQLiteHelper.COLUMN_TOCURRENCY, MySQLiteHelper.COLUMN_BALANCE };
 
-    public WalletStorage(Context context) {
+    public Wallet IDwallet = new Wallet();
 
+    public WalletStorage(Context context) {
         dbHelper = new MySQLiteHelper(context);
         open();
     }
@@ -31,6 +32,7 @@ public class WalletStorage {
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
     }
+
     public  SQLiteDatabase getDatabase() {
         return database;
     }
@@ -47,8 +49,11 @@ public class WalletStorage {
         values.put(MySQLiteHelper.COLUMN_TOCURRENCY, wallet.getToCurrency());
         values.put(MySQLiteHelper.COLUMN_BALANCE, wallet.getBalance());
 
-        long insertId = database.insert(MySQLiteHelper.TABLE_WALLETS, null,
+        database.insert(MySQLiteHelper.TABLE_WALLETS, null,
                 values);
+
+//        long insertId = database.insert(MySQLiteHelper.TABLE_WALLETS, null,
+//                values);
 
 //        Cursor cursor = database.query(MySQLiteHelper.TABLE_WALLETS,
 //                allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
@@ -82,9 +87,31 @@ public class WalletStorage {
         return wallets;
     }
 
+    public Wallet getWalletFromId(int id) {
+        // used to populate ViewWallet
+        Cursor cursor = database.query (MySQLiteHelper.TABLE_WALLETS,
+                allColumns, "_id = ?",
+                new String[] {Integer.toString(id)},
+                null, null,null);
+
+        // move to the first record that fits this criteria
+        if (cursor.moveToFirst()) {
+            // get details from record
+            IDwallet.setName(cursor.getString(1));
+            IDwallet.setFromCurrency(cursor.getString(2));
+            IDwallet.setToCurrency(cursor.getString(3));
+            IDwallet.setBalance(cursor.getDouble(4));
+            System.out.println("moves to first");
+        }
+
+        System.out.println("getWalletFromId called.");
+        cursor.close();
+        return IDwallet;
+    }
+
     private Wallet cursorToWallet(Cursor cursor) {
         Wallet wallet = new Wallet();
-        //wallet.setId(cursor.getInt(0));//probably don't need to track this
+        //wallet.setId(cursor.getInt(0)); //probably don't need to track this
         wallet.setName(cursor.getString(1));
         wallet.setFromCurrency(cursor.getString(2));
         wallet.setToCurrency(cursor.getString(3));
