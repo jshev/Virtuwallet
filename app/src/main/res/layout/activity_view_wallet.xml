@@ -80,6 +80,19 @@
         android:text="TO CURRENCY"/>
 
     <TextView
+        android:id="@+id/balanceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/toCurrency"
+        android:layout_toLeftOf="@id/walletBalance"
+        android:text="Balance: "/>
+
+    <TextView
         android:id="@+id/walletBalance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,7 +102,8 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_below="@+id/toCurrency"
-        android:text="Balance: 0"/>
+        android:text="0"/>
+
 
     <Button
         android:id="@+id/convertButton"

@@ -52,18 +52,6 @@ public class WalletStorage {
         database.insert(MySQLiteHelper.TABLE_WALLETS, null,
                 values);
 
-//        long insertId = database.insert(MySQLiteHelper.TABLE_WALLETS, null,
-//                values);
-
-//        Cursor cursor = database.query(MySQLiteHelper.TABLE_WALLETS,
-//                allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
-//                null, null, null);
-//
-//        cursor.moveToFirst();
-//
-//        Wallet newWallet = cursorToWallet(cursor);
-//        cursor.close();
-
     }
 
     public List<Wallet> getAllWallets() {
@@ -107,6 +95,20 @@ public class WalletStorage {
         System.out.println("getWalletFromId called.");
         cursor.close();
         return IDwallet;
+    }
+
+    public void updateWallet(int id, double newBalance) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_BALANCE, newBalance);
+
+        database.update(MySQLiteHelper.TABLE_WALLETS, values, MySQLiteHelper.COLUMN_ID
+                + " = " + id, null);
+    }
+
+    public void deleteWallet(int id) {
+        System.out.println("deleteWallet called.");
+        database.delete(MySQLiteHelper.TABLE_WALLETS, MySQLiteHelper.COLUMN_ID
+                + " = " + id, null);
     }
 
     private Wallet cursorToWallet(Cursor cursor) {

@@ -1,5 +1,6 @@
 package ser210.quinnipiac.edu.virtuwallet;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,9 @@ import java.util.concurrent.ExecutionException;
 public class ViewWalletActivity extends AppCompatActivity {
 
     Button btnConvert;
+    Button btnDelete;
+    Button btnWithdraw;
+    Button btnDeposit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +24,12 @@ public class ViewWalletActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_wallet);
 
         // get walletId from intent
-        // ... it just works
+        // issue here!!!
         int walletId = (Integer) getIntent().getExtras().get("walletId");
-        int realId = walletId + 1;
+        final int realId = walletId + 3;
 
         // call new WalletStorage and get wallet info from database
-        WalletStorage ws = new WalletStorage(this);
+        final WalletStorage ws = new WalletStorage(this);
         final Wallet wallet = ws.getWalletFromId(realId);
 
         // populate textfields
@@ -38,8 +42,11 @@ public class ViewWalletActivity extends AppCompatActivity {
         TextView toCurrText = (TextView) findViewById(R.id.toCurrency);
         toCurrText.setText(wallet.getToCurrency());
 
-        String fullBalance = "Balance: " + Double.toString(wallet.getBalance());
-        TextView balanceText = (TextView) findViewById(R.id.walletBalance);
+        //String fullBalance = "Balance: " + Double.toString(wallet.getBalance());
+        //final TextView balanceText = (TextView) findViewById(R.id.walletBalance);
+        //balanceText.setText(fullBalance);
+        String fullBalance = Double.toString(wallet.getBalance());
+        final TextView balanceText = (TextView) findViewById(R.id.walletBalance);
         balanceText.setText(fullBalance);
 
         final EditText amountEditText = (EditText)findViewById(R.id.fromAmount);
@@ -74,5 +81,42 @@ public class ViewWalletActivity extends AppCompatActivity {
             }
         });
 
+        btnDelete = (Button) findViewById(R.id.deleteButton);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ws.deleteWallet(realId);
+                Intent intent = new Intent(ViewWalletActivity.this, WalletsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnWithdraw = (Button) findViewById(R.id.withdrawButton);
+        btnWithdraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView toAmount = (TextView)findViewById(R.id.toAmount);
+                double converted = Double.valueOf(toAmount.getText().toString());
+                double oldBalance = Double.valueOf(balanceText.getText().toString());
+                double withBalance = oldBalance - converted;
+                ws.updateWallet(realId, withBalance);
+                String balance = Double.toString(withBalance);
+                balanceText.setText(balance.substring(0, balance.indexOf('.') + 3));
+            }
+        });
+
+        btnDeposit = (Button) findViewById(R.id.depositButton);
+        btnDeposit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView toAmount = (TextView)findViewById(R.id.toAmount);
+                double converted = Double.valueOf(toAmount.getText().toString());
+                double oldBalance = Double.valueOf(balanceText.getText().toString());
+                double deBalance = oldBalance + converted;
+                ws.updateWallet(realId, deBalance);
+                String balance = Double.toString(deBalance);
+                balanceText.setText(balance.substring(0, balance.indexOf('.') + 3));
+            }
+        });
     }
 }

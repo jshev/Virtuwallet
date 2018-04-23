@@ -42,13 +42,14 @@ public class WalletsActivity extends AppCompatActivity {
         AdapterView.OnItemClickListener itemClickListener =
                 new AdapterView.OnItemClickListener(){
                     @Override
-                    public void onItemClick(AdapterView<?> listDrinks,
+                    public void onItemClick(AdapterView<?> myList,
                                             View itemView,
                                             int position,
                                             long id) {
                         // pass the wallet the user clicks on to ViewWallet
                         Intent intent = new Intent(WalletsActivity.this,
                                 ViewWalletActivity.class);
+                        System.out.println("Wallet View View id" + id);
                         intent.putExtra("walletId", (int) id);
                         startActivity(intent);
                     }
