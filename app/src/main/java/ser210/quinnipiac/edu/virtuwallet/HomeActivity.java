@@ -35,20 +35,15 @@ public class HomeActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        //get root view from any view
+        View root = btn.getRootView();
+        root.setBackgroundColor(getResources().getColor(DialogUtility.APP_THEME));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.my_menu,menu);
-
-       /* MenuItem searchItem = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) searchItem.getActionView(); */
-        // Get the ActionProvider for later usage
-        MenuItem shareItem =  menu.findItem(R.id.share);
-        provider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
-
-
-
+        getMenuInflater().inflate(R.menu.my_menu_noshare,menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -61,12 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         switch (id){
             case R.id.settings:
                 //startActivity(new Intent(this, SettingsActivity.class));
-                break;
-            case R.id.share:
-                // populate the share intent with data
-                intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-
+                DialogUtility.createDialog(null, this).show();
                 break;
             default:
                 return super.onOptionsItemSelected(item);

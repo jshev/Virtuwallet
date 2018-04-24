@@ -1,9 +1,13 @@
 package ser210.quinnipiac.edu.virtuwallet;
 
 import android.content.Intent;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +23,7 @@ public class ViewWalletActivity extends AppCompatActivity {
     private Button btnWithdraw;
     private Button btnDeposit;
     private int realId;
+    private ShareActionProvider provider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +122,10 @@ public class ViewWalletActivity extends AppCompatActivity {
                 balanceText.setText(formatBalance(balance));
             }
         });
+
+        //get root view from any view
+        View root = btnDelete.getRootView();
+        root.setBackgroundColor(getResources().getColor(DialogUtility.APP_THEME));
     }
 
     private String formatBalance(String balance){
@@ -130,6 +139,39 @@ public class ViewWalletActivity extends AppCompatActivity {
         }else{//has under 2 decimals, so post as is
             return balance;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.my_menu,menu);
+
+       /* MenuItem searchItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) searchItem.getActionView(); */
+        // Get the ActionProvider for later usage
+        MenuItem shareItem =  menu.findItem(R.id.share);
+        provider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+
+
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        Intent intent = null;
+        switch (id){
+            case R.id.settings:
+                //startActivity(new Intent(this, SettingsActivity.class));
+                DialogUtility.createDialog(null, this).show();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
