@@ -7,18 +7,21 @@
     android:orientation="vertical"
     tools:context="ser210.quinnipiac.edu.virtuwallet.WalletsActivity">
 
-    <Button
-        android:id="@+id/add"
-        android:theme="@style/AppTheme.Button"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add"
-        android:onClick="onClickAdd" />
-
-    <ListView
-        android:id="@+id/my_list"
+    <android.support.v7.widget.Toolbar
+        android:id = "@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="#fff"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="ser210.quinnipiac.edu.virtuwallet.WalletsFragment"
+        android:layout_below="@id/my_toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

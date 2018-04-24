@@ -6,36 +6,23 @@
     android:layout_height="match_parent"
     tools:context="ser210.quinnipiac.edu.virtuwallet.HomeActivity">
 
-    <TextView
-        android:id="@+id/directions"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id = "@+id/my_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:textAppearance"
-        android:layout_marginTop="70dp"
-        android:gravity="center"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:text="@string/info"/>
-
-    <ImageView
-        android:id="@+id/pigPicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/directions"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/piggybank"/>
-
-    <Button
-        android:id="@+id/translateButton"
-        android:theme="@style/AppTheme.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/manage"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/pigPicture"
+        android:elevation="4dp"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="#fff"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         />
+
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="ser210.quinnipiac.edu.virtuwallet.HomeFragment"
+        android:layout_below="@id/my_toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+
 
 </RelativeLayout>

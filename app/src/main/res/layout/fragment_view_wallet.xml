@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewWalletFragment">
+
+    <TextView
+        android:id="@+id/walletName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:text="WALLET NAME"/>
+
+    <EditText
+        android:id="@+id/fromAmount"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:inputType="numberDecimal"
+        android:layout_below="@+id/walletName" />
+
+    <TextView
+        android:id="@+id/fromCurrency"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@+id/fromAmount"
+        android:layout_below="@+id/walletName"
+        android:text="FROM CURR"/>
+
+    <TextView
+        android:id="@+id/TO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/fromCurrency"
+        android:text="@string/to"/>
+
+    <TextView
+        android:id="@+id/toAmount"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/TO"
+        android:text="0"/>
+
+    <TextView
+        android:id="@+id/toCurrency"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@+id/toAmount"
+        android:layout_below="@+id/TO"
+        android:text="TO CURRENCY"/>
+
+    <TextView
+        android:id="@+id/balanceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/toCurrency"
+        android:layout_toLeftOf="@id/walletBalance"
+        android:text="Balance: "/>
+
+    <TextView
+        android:id="@+id/walletBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/toCurrency"
+        android:text="0"/>
+
+
+    <Button
+        android:id="@+id/convertButton"
+        android:theme="@style/AppTheme.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/convert"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/walletBalance"/>
+
+    <Button
+        android:id="@+id/withdrawButton"
+        android:theme="@style/AppTheme.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/withdraw"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="85dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/convertButton"/>
+
+    <Button
+        android:id="@+id/depositButton"
+        android:theme="@style/AppTheme.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/deposit"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/withdrawButton"
+        android:layout_below="@+id/convertButton"/>
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:theme="@style/AppTheme.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/withdrawButton"/>
+
+
+</FrameLayout>

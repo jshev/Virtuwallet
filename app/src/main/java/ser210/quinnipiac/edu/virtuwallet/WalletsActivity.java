@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -49,19 +50,31 @@ public class WalletsActivity extends AppCompatActivity {
                         // pass the wallet the user clicks on to ViewWallet
                         Intent intent = new Intent(WalletsActivity.this,
                                 ViewWalletActivity.class);
-                        System.out.println("Wallet View View id" + id);
-                        intent.putExtra("walletId", (int) id);
+                        System.out.println("Wallet View View position: " + position);
+                        intent.putExtra("walletId", position+1);
                         startActivity(intent);
                     }
                 };
 
         //Assign the listener to the list view
         myList.setOnItemClickListener(itemClickListener);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     public void onClickAdd(View view) {
         Intent intent = new Intent(WalletsActivity.this, AddWalletActivity.class);
         startActivity(intent);
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }
