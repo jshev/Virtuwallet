@@ -28,7 +28,7 @@ public class Wallet {
         this.balance = balance;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 

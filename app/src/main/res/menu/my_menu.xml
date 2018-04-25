@@ -9,8 +9,10 @@
         android:title="Settings"
         app:showAsAction="always"
         />
-    <item android:id="@+id/share"
+    <item
+        android:id="@+id/share"
         android:title="Share"
+        android:orderInCategory="2"
         app:showAsAction="always"
         app:actionProviderClass="android.support.v7.widget.ShareActionProvider" />
 

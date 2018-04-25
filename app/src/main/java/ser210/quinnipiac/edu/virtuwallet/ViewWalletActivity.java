@@ -22,8 +22,8 @@ public class ViewWalletActivity extends AppCompatActivity {
     private Button btnDelete;
     private Button btnWithdraw;
     private Button btnDeposit;
-    private int realId;
-    private ShareActionProvider provider;
+    private android.support.v7.widget.ShareActionProvider provider;
+    public String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +35,12 @@ public class ViewWalletActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        // get walletId from intent
-        // issue here!!!
-        int walletId = (Integer) getIntent().getExtras().get("walletId");
-        realId = walletId;
-        System.out.println("-------------------------------------------" + realId);
+        // get walletName from intent
+        final String walletName = (String) getIntent().getExtras().get("walletName");
 
         // call new WalletStorage and get wallet info from database
         final WalletStorage ws = new WalletStorage(this);
-        final Wallet wallet = ws.getWalletFromId(realId);
+        final Wallet wallet = ws.getWalletFromName(walletName);
 
         // populate textfields
         TextView nameText = (TextView) findViewById(R.id.walletName);
@@ -89,7 +86,7 @@ public class ViewWalletActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ws.deleteWallet(realId);
+                ws.deleteWallet(walletName);
                 Intent intent = new Intent(ViewWalletActivity.this, WalletsActivity.class);
                 startActivity(intent);
             }
@@ -99,13 +96,13 @@ public class ViewWalletActivity extends AppCompatActivity {
         btnWithdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView toAmount = (TextView)findViewById(R.id.toAmount);
                 double converted = Double.valueOf(amountEditText.getText().toString());
                 double oldBalance = Double.valueOf(balanceText.getText().toString());
                 double withBalance = oldBalance - converted;
-                ws.updateWallet(realId, withBalance);
+                ws.updateWallet(wallet.getId(), withBalance);
                 String balance = Double.toString(withBalance);
                 balanceText.setText(formatBalance(balance));
+                //balanceText.setText(balance);
             }
         });
 
@@ -113,19 +110,22 @@ public class ViewWalletActivity extends AppCompatActivity {
         btnDeposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView toAmount = (TextView)findViewById(R.id.toAmount);
                 double converted = Double.valueOf(amountEditText.getText().toString());
                 double oldBalance = Double.valueOf(balanceText.getText().toString());
                 double deBalance = oldBalance + converted;
-                ws.updateWallet(realId, deBalance);
+                ws.updateWallet(wallet.getId(), deBalance);
                 String balance = Double.toString(deBalance);
                 balanceText.setText(formatBalance(balance));
+                //balanceText.setText(balance);
             }
         });
 
         //get root view from any view
         View root = btnDelete.getRootView();
         root.setBackgroundColor(getResources().getColor(DialogUtility.APP_THEME));
+
+        message = "I have " + formatBalance(Double.toString(wallet.getBalance())) + " " + wallet.getFromCurrency()
+                + " in my " + wallet.getName() + " wallet!";
     }
 
     private String formatBalance(String balance){
@@ -148,11 +148,17 @@ public class ViewWalletActivity extends AppCompatActivity {
        /* MenuItem searchItem = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) searchItem.getActionView(); */
         // Get the ActionProvider for later usage
+
         MenuItem shareItem =  menu.findItem(R.id.share);
-        provider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        provider = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
 
-
-
+        if (provider != null) {
+            provider.setShareIntent(createShareBalanceIntent());
+        }
+            //globalShareActionProvider=mShareActionProvider;
+        //} else {
+            //Log.d(LOG_TAG, "Share Action Provider is null?");
+        //}
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -167,11 +173,27 @@ public class ViewWalletActivity extends AppCompatActivity {
                 //startActivity(new Intent(this, SettingsActivity.class));
                 DialogUtility.createDialog(null, this).show();
                 break;
+            case R.id.share:
+                // populate the share intent with data
+                System.out.println("share clicked.");
+                System.out.println("message is " + message);
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+                provider.setShareIntent(shareIntent);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private Intent createShareBalanceIntent() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+        return shareIntent;
     }
 
     @Override

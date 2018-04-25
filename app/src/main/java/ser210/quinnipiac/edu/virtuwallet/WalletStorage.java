@@ -75,16 +75,17 @@ public class WalletStorage {
         return wallets;
     }
 
-    public Wallet getWalletFromId(int id) {
+    public Wallet getWalletFromName(String name) {
         // used to populate ViewWallet
         Cursor cursor = database.query (MySQLiteHelper.TABLE_WALLETS,
-                allColumns, "_id = ?",
-                new String[] {Integer.toString(id)},
+                allColumns, "name = ?",
+                new String[] {name},
                 null, null,null);
 
         // move to the first record that fits this criteria
         if (cursor.moveToFirst()) {
             // get details from record
+            IDwallet.setId(cursor.getInt(0));
             IDwallet.setName(cursor.getString(1));
             IDwallet.setFromCurrency(cursor.getString(2));
             IDwallet.setToCurrency(cursor.getString(3));
@@ -105,10 +106,10 @@ public class WalletStorage {
                 + " = " + id, null);
     }
 
-    public void deleteWallet(int id) {
+    public void deleteWallet(String name) {
         System.out.println("deleteWallet called.");
-        database.delete(MySQLiteHelper.TABLE_WALLETS, MySQLiteHelper.COLUMN_ID
-                + " = " + id, null);
+        database.delete(MySQLiteHelper.TABLE_WALLETS, MySQLiteHelper.COLUMN_NAME
+                + " = " + name, null);
     }
 
     private Wallet cursorToWallet(Cursor cursor) {

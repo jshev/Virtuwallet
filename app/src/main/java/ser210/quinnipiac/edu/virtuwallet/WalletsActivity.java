@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -52,8 +53,9 @@ public class WalletsActivity extends AppCompatActivity {
                         // pass the wallet the user clicks on to ViewWallet
                         Intent intent = new Intent(WalletsActivity.this,
                                 ViewWalletActivity.class);
-                        System.out.println("Wallet View View position: " + position);
-                        intent.putExtra("walletId", position+1);
+                        String name = myList.getItemAtPosition(position).toString();
+                        // System.out.println("Wallet View View position: " + position);
+                        intent.putExtra("walletName", name);
                         startActivity(intent);
                     }
                 };
@@ -69,11 +71,16 @@ public class WalletsActivity extends AppCompatActivity {
         //get root view from any view
         View root = myToolbar.getRootView();
         root.setBackgroundColor(getResources().getColor(DialogUtility.APP_THEME));
-    }
 
-    public void onClickAdd(View view) {
-        Intent intent = new Intent(WalletsActivity.this, AddWalletActivity.class);
-        startActivity(intent);
+        Button addBtn = (Button)findViewById(R.id.add);
+
+        addBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WalletsActivity.this, AddWalletActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
