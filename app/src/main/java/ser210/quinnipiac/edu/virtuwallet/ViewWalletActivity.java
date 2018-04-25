@@ -24,6 +24,7 @@ public class ViewWalletActivity extends AppCompatActivity {
     private Button btnDeposit;
     private android.support.v7.widget.ShareActionProvider provider;
     public String message;
+    private Wallet wallet = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class ViewWalletActivity extends AppCompatActivity {
 
         // call new WalletStorage and get wallet info from database
         final WalletStorage ws = new WalletStorage(this);
-        final Wallet wallet = ws.getWalletFromName(walletName);
+        wallet = ws.getWalletFromName(walletName);
 
         // populate textfields
         TextView nameText = (TextView) findViewById(R.id.walletName);
@@ -119,13 +120,13 @@ public class ViewWalletActivity extends AppCompatActivity {
                 //balanceText.setText(balance);
             }
         });
+        message = "I have " + formatBalance(Double.toString(wallet.getBalance())) + " " + wallet.getFromCurrency()
+                + " in my " + wallet.getName() + " wallet!";
 
         //get root view from any view
         View root = btnDelete.getRootView();
         root.setBackgroundColor(getResources().getColor(DialogUtility.APP_THEME));
 
-        message = "I have " + formatBalance(Double.toString(wallet.getBalance())) + " " + wallet.getFromCurrency()
-                + " in my " + wallet.getName() + " wallet!";
     }
 
     private String formatBalance(String balance){
@@ -175,6 +176,8 @@ public class ViewWalletActivity extends AppCompatActivity {
                 break;
             case R.id.share:
                 // populate the share intent with data
+                message = "I have " + formatBalance(Double.toString(wallet.getBalance())) + " " + wallet.getFromCurrency()
+                        + " in my " + wallet.getName() + " wallet!";
                 System.out.println("share clicked.");
                 System.out.println("message is " + message);
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
