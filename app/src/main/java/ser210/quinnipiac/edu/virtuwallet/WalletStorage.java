@@ -78,7 +78,7 @@ public class WalletStorage {
     public Wallet getWalletFromName(String name) {
         // used to populate ViewWallet
         Cursor cursor = database.query (MySQLiteHelper.TABLE_WALLETS,
-                allColumns, "name = ?",
+                allColumns, "name like ?",
                 new String[] {name},
                 null, null,null);
 
@@ -108,8 +108,7 @@ public class WalletStorage {
 
     public void deleteWallet(String name) {
         System.out.println("deleteWallet called.");
-        database.delete(MySQLiteHelper.TABLE_WALLETS, MySQLiteHelper.COLUMN_NAME
-                + " = " + name, null);
+        database.delete(MySQLiteHelper.TABLE_WALLETS, MySQLiteHelper.COLUMN_NAME + " LIKE ? ", new String[] {name});
     }
 
     private Wallet cursorToWallet(Cursor cursor) {

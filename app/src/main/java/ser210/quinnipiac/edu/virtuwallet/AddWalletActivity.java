@@ -50,6 +50,7 @@ public class AddWalletActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item,
                         currencies); //selected item will look like a spinner set from XML

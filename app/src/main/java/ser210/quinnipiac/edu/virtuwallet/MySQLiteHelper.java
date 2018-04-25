@@ -21,7 +21,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database creation sql statement
-    private static final String DATABASE_CREATE = "create table "
+    private static final String DATABASE_CREATE = "create table if not exists "
             + TABLE_WALLETS + "(" + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_NAME
             + " text not null, " + COLUMN_FROMCURRENCY

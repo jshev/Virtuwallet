@@ -110,7 +110,7 @@ public class WalletsActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        startActivity(new Intent(this, HomeActivity.class));
         return true;
     }
 
