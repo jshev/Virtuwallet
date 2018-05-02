@@ -18,7 +18,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_BALANCE = "balance";
 
     public static final String DATABASE_NAME = "wallets.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
     // Database creation sql statement
     private static final String DATABASE_CREATE = "create table if not exists "
