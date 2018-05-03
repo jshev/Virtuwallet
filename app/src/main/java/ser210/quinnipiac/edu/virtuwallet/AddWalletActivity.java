@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -67,23 +68,30 @@ public class AddWalletActivity extends AppCompatActivity {
         btnMakeWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String from = fromCurrency.getSelectedItem().toString();//USD-United States Dollar
-                String to = toCurrency.getSelectedItem().toString();//USD-United States Dollar
 
-                from = from.substring(0, from.indexOf('-'));//USD
-                to = to.substring(0, to.indexOf('-'));//USD
+                if(nameEditText.getText().toString().equals("") || balanceEditText.getText().toString().equals("")){//not all fields have been entered
+                    Toast.makeText(getApplicationContext(), "Please ensure that all fields have been filled out first", Toast.LENGTH_LONG).show();
 
-                double balance = Double.parseDouble(balanceEditText.getText().toString());
-                String name = nameEditText.getText().toString();
+                }else{//all fields have been filled out
+                    String from = fromCurrency.getSelectedItem().toString();//USD-United States Dollar
+                    String to = toCurrency.getSelectedItem().toString();//USD-United States Dollar
 
-                Wallet wallet = new Wallet(name, from, to, balance);
+                    from = from.substring(0, from.indexOf('-'));//USD
+                    to = to.substring(0, to.indexOf('-'));//USD
 
-                WalletStorage ws = new WalletStorage(view.getContext());
-                ws.insertWallet(wallet);
-                ws.getAllWallets();
+                    double balance = Double.parseDouble(balanceEditText.getText().toString());
+                    String name = nameEditText.getText().toString();
 
-                Intent intent = new Intent(AddWalletActivity.this, WalletsActivity.class);
-                startActivity(intent);
+                    Wallet wallet = new Wallet(name, from, to, balance);
+
+                    WalletStorage ws = new WalletStorage(view.getContext());
+                    ws.insertWallet(wallet);
+                    ws.getAllWallets();
+
+                    Intent intent = new Intent(AddWalletActivity.this, WalletsActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
     }

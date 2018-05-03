@@ -41,6 +41,7 @@ public class WalletsActivity extends AppCompatActivity {
         ArrayAdapter<Wallet> adapter = new ArrayAdapter<Wallet>(this,
                 android.R.layout.simple_list_item_1, values);
         myList.setAdapter(adapter);
+        
 
         //Create the listener
         AdapterView.OnItemClickListener itemClickListener =
